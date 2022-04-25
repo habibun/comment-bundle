@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thread index{% endblock %}
+
+{% block body %}
+    <h1>Thread index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Permalink</th>
+                <th>IsCommentable</th>
+                <th>NumComments</th>
+                <th>LastCommentAt</th>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for thread in threads %}
+            <tr>
+                <td>{{ thread.permalink }}</td>
+                <td>{{ thread.isCommentable ? 'Yes' : 'No' }}</td>
+                <td>{{ thread.numComments }}</td>
+                <td>{{ thread.lastCommentAt ? thread.lastCommentAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ thread.id }}</td>
+                <td>
+                    <a href="{{ path('app_thread_show', {'id': thread.id}) }}">show</a>
+                    <a href="{{ path('app_thread_edit', {'id': thread.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_thread_new') }}">Create new</a>
+{% endblock %}

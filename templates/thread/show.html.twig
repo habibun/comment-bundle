@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thread{% endblock %}
+
+{% block body %}
+    <h1>Thread</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Permalink</th>
+                <td>{{ thread.permalink }}</td>
+            </tr>
+            <tr>
+                <th>IsCommentable</th>
+                <td>{{ thread.isCommentable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>NumComments</th>
+                <td>{{ thread.numComments }}</td>
+            </tr>
+            <tr>
+                <th>LastCommentAt</th>
+                <td>{{ thread.lastCommentAt ? thread.lastCommentAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ thread.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    {% include '@FOSComment/Thread/async.html.twig' with {'id': thread.id} %}
+    <br>
+
+    <a href="{{ path('app_thread_index') }}">back to list</a>
+
+    <a href="{{ path('app_thread_edit', {'id': thread.id}) }}">edit</a>
+
+    {{ include('thread/_delete_form.html.twig') }}
+{% endblock %}
